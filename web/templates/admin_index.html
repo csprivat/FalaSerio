@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Área administrativa{% endblock %}
+
+{% block content %}
+<section class="px-6 py-16">
+    <div class="max-w-3xl mx-auto bg-white border border-slate-200 rounded-2xl shadow-sm p-8">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+                <h1 class="text-3xl font-headline font-extrabold text-slate-900">Área administrativa</h1>
+                <p class="text-slate-600 mt-2">Acesso administrativo ativo.</p>
+            </div>
+            <div class="flex flex-col gap-3 sm:flex-row">
+                <a href="{{ url_for('admin_questions') }}"
+                   class="inline-flex items-center justify-center bg-primary hover:opacity-90 text-on-primary font-semibold px-5 py-3 rounded-xl transition-opacity">
+                    Gerenciar perguntas
+                </a>
+                <a href="{{ url_for('admin_logout') }}"
+                   class="inline-flex items-center justify-center bg-slate-900 hover:bg-slate-800 text-white font-semibold px-5 py-3 rounded-xl transition-colors">
+                    Sair
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

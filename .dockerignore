@@ -1,0 +1,35 @@
+# Credenciais e ambiente
+.env
+*.env
+
+# Logs
+*.log
+faleserio.log
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ambiente virtual
+venv/
+.venv/
+pyvenv.cfg
+Lib/
+Scripts/
+
+# Git e IDE
+.git/
+.gitignore
+.vscode/
+
+# Cobertura e testes
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Build
+dist/
+build/
+*.egg-info/

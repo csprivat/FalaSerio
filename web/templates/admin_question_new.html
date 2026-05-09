@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}Nova pergunta{% endblock %}
+
+{% block content %}
+<section class="px-6 py-16">
+    <div class="max-w-4xl mx-auto space-y-6">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+                <h1 class="text-3xl font-headline font-extrabold text-slate-900">Nova pergunta</h1>
+                <p class="text-slate-600 mt-2">Cadastre uma nova pergunta para o quiz.</p>
+            </div>
+            <a href="{{ url_for('admin_questions') }}"
+               class="inline-flex items-center justify-center bg-slate-900 hover:bg-slate-800 text-white font-semibold px-5 py-3 rounded-xl transition-colors">
+                Voltar à listagem
+            </a>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-8">
+            {% if error_message %}
+            <div class="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                {{ error_message }}
+            </div>
+            {% endif %}
+
+            <form method="post" class="space-y-5">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <div>
+                    <label for="question_text" class="block text-sm font-semibold text-slate-700 mb-1">Pergunta</label>
+                    <textarea id="question_text" name="question_text" rows="4" required
+                              class="w-full rounded-xl border-slate-300 focus:border-primary focus:ring-primary">{{ form_data.question_text }}</textarea>
+                </div>
+
+                <div class="grid gap-5 md:grid-cols-2">
+                    <div>
+                        <label for="option_1" class="block text-sm font-semibold text-slate-700 mb-1">Opção 1</label>
+                        <input id="option_1" name="option_1" type="text" required value="{{ form_data.option_1 }}"
+                               class="w-full rounded-xl border-slate-300 focus:border-primary focus:ring-primary">
+                    </div>
+                    <div>
+                        <label for="option_2" class="block text-sm font-semibold text-slate-700 mb-1">Opção 2</label>
+                        <input id="option_2" name="option_2" type="text" required value="{{ form_data.option_2 }}"
+                               class="w-full rounded-xl border-slate-300 focus:border-primary focus:ring-primary">
+                    </div>
+                </div>
+
+                <div class="grid gap-5 md:grid-cols-2">
+                    <div>
+                        <label for="correct_answer" class="block text-sm font-semibold text-slate-700 mb-1">Resposta correta</label>
+                        <input id="correct_answer" name="correct_answer" type="text" required value="{{ form_data.correct_answer }}"
+                               class="w-full rounded-xl border-slate-300 focus:border-primary focus:ring-primary">
+                    </div>
+                    <div>
+                        <label for="content_type" class="block text-sm font-semibold text-slate-700 mb-1">Tipo de conteúdo</label>
+                        <select id="content_type" name="content_type" required
+                                class="w-full rounded-xl border-slate-300 focus:border-primary focus:ring-primary">
+                            <option value="fact_check" {% if form_data.content_type == 'fact_check' %}selected{% endif %}>fact_check</option>
+                            <option value="scenario" {% if form_data.content_type == 'scenario' %}selected{% endif %}>scenario</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="context_text" class="block text-sm font-semibold text-slate-700 mb-1">Contexto</label>
+                    <textarea id="context_text" name="context_text" rows="4"
+                              class="w-full rounded-xl border-slate-300 focus:border-primary focus:ring-primary">{{ form_data.context_text }}</textarea>
+                </div>
+
+                <div>
+                    <label for="explanation" class="block text-sm font-semibold text-slate-700 mb-1">Explicação</label>
+                    <textarea id="explanation" name="explanation" rows="4"
+                              class="w-full rounded-xl border-slate-300 focus:border-primary focus:ring-primary">{{ form_data.explanation }}</textarea>
+                </div>
+
+                <div>
+                    <label for="tip_text" class="block text-sm font-semibold text-slate-700 mb-1">Dica</label>
+                    <textarea id="tip_text" name="tip_text" rows="3"
+                              class="w-full rounded-xl border-slate-300 focus:border-primary focus:ring-primary">{{ form_data.tip_text }}</textarea>
+                </div>
+
+                <div class="grid gap-5 md:grid-cols-2">
+                    <div>
+                        <label for="category" class="block text-sm font-semibold text-slate-700 mb-1">Categoria</label>
+                        <input id="category" name="category" type="text" value="{{ form_data.category }}"
+                               class="w-full rounded-xl border-slate-300 focus:border-primary focus:ring-primary">
+                    </div>
+                    <div>
+                        <label for="theme_id" class="block text-sm font-semibold text-slate-700 mb-1">Theme ID</label>
+                        <input id="theme_id" name="theme_id" type="number" min="1" step="1" value="{{ form_data.theme_id }}"
+                               class="w-full rounded-xl border-slate-300 focus:border-primary focus:ring-primary">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="source" class="block text-sm font-semibold text-slate-700 mb-1">Fonte</label>
+                    <textarea id="source" name="source" rows="3"
+                              class="w-full rounded-xl border-slate-300 focus:border-primary focus:ring-primary">{{ form_data.source }}</textarea>
+                </div>
+
+                <div class="flex flex-col gap-3 sm:flex-row">
+                    <button type="submit"
+                            class="inline-flex items-center justify-center bg-primary hover:opacity-90 text-on-primary font-semibold px-5 py-3 rounded-xl transition-opacity">
+                        Criar pergunta
+                    </button>
+                    <a href="{{ url_for('admin_questions') }}"
+                       class="inline-flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-900 font-semibold px-5 py-3 rounded-xl transition-colors">
+                        Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

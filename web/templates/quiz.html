@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% block title %}Quiz{% endblock %}
+
+{% block content %}
+<div class="quiz-shell">
+    <!-- Momentum Tracker -->
+    <section class="quiz-tracker">
+        <div class="quiz-tracker-header">
+            <div class="quiz-tracker-copy">
+                <div class="quiz-progress-pill">
+                    <span class="material-symbols-outlined quiz-progress-pill-icon">flag</span>
+                    <span id="quiz-progress" class="quiz-progress-text">Pergunta 1 de 10</span>
+                </div>
+                <h1 class="quiz-tracker-title">Análise da informação</h1>
+            </div>
+            <div id="quiz-score" class="quiz-score-card">
+                <span class="material-symbols-outlined quiz-score-icon icon-filled">stars</span>
+                <span class="quiz-score-label">Pontuação: <span id="score-value" class="quiz-score-value">0</span>/10</span>
+            </div>
+        </div>
+        <div class="quiz-progress-track">
+            <div id="progress-bar" class="quiz-progress-fill" style="width: 0%;"></div>
+        </div>
+    </section>
+
+    <!-- Question Canvas -->
+    <div class="quiz-layout">
+        <!-- Main Content Area -->
+        <div class="quiz-main-column">
+            <!-- Evidence Card -->
+            <article id="quiz-area" class="quiz-question-card quiz-card" aria-live="polite">
+                <div class="quiz-question-accent"></div>
+                <div class="quiz-question-meta">
+                    <div class="quiz-question-source-badge">
+                        <span class="material-symbols-outlined quiz-question-source-icon">news</span>
+                    </div>
+                    <span id="question-source" class="quiz-question-source">Fonte: Fala Sério Quiz</span>
+                </div>
+                <!-- Contexto do Cenário (ocultado por padrão) -->
+                <div id="scenario-context" class="hidden quiz-context quiz-support-block" aria-live="polite">
+                    <div class="quiz-context-header">
+                        <span class="material-symbols-outlined quiz-context-icon">info</span>
+                        <div class="quiz-context-copy">
+                            <h3 class="quiz-context-title">Contexto para analisar</h3>
+                            <!--<p class="text-xs text-on-surface-variant font-medium uppercase tracking-wide">Use este apoio antes de escolher sua resposta.</p> -->
+                        </div>
+                    </div>
+                    <p id="context-text" class="quiz-context-text"></p>
+                </div>
+                <h2 id="question-text" class="quiz-question-title">
+                    Carregando pergunta...
+                </h2>
+                <p class="quiz-question-instruction">Escolha a opção que melhor corresponde à sua avaliação.</p>
+            </article>
+
+            <!-- Action Buttons -->
+            <div id="options-area" class="quiz-options-area" aria-label="Opções de resposta">
+                <!-- Buttons rendered by quiz.js -->
+            </div>
+
+            <!-- Feedback Area -->
+            <div id="feedback-area" class="hidden quiz-feedback-area">
+                <div id="feedback-card" class="quiz-feedback-card">
+                    <div class="quiz-feedback-header">
+                        <div id="feedback-badge" class="quiz-feedback-badge">
+                            <span id="feedback-icon" class="material-symbols-outlined quiz-feedback-icon icon-filled"></span>
+                        </div>
+                        <div class="quiz-feedback-content">
+                            <p id="feedback-text" class="quiz-feedback-text"></p>
+                            <p id="feedback-status" class="quiz-feedback-status"></p>
+                        </div>
+                    </div>
+                    <!-- Explicação (ocultada por padrão) -->
+                    <div id="explanation-box" class="hidden quiz-explanation-box quiz-explanation-block">
+                        <div class="quiz-explanation-header">
+                            <span class="material-symbols-outlined quiz-explanation-icon">fact_check</span>
+                            <div>
+                                <h3 class="quiz-explanation-title">Explicação</h3>
+                            </div>
+                        </div>
+                        <p id="explanation-text" class="quiz-explanation-text"></p>
+                    </div>
+                    <div class="quiz-next-button-row">
+                        <button id="next-question-btn" class="hidden quiz-next-button">
+                            <span class="material-symbols-outlined quiz-next-button-icon">arrow_forward</span>
+                            <span id="next-question-label" class="quiz-next-button-label">Próxima pergunta</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="quiz-sidebar-column quiz-sidebar">
+            <!-- Tips Card -->
+            <div class="quiz-tip-card">
+                <h3 class="quiz-tip-header">
+                    <span class="material-symbols-outlined quiz-tip-icon">lightbulb</span>
+                    <span class="quiz-tip-title">
+                    Dica de verificação
+                    </span>
+                </h3>
+                <p id="tip-text" class="quiz-tip-text">
+                    Observe se a notícia cita instituições específicas ou nomes de pesquisadores.
+                    Manchetes que prometem resultados "milagrosos" são frequentemente iscas de cliques.
+                </p>
+            </div>
+
+            <!-- Useful Resources -->
+            <div class="quiz-resources-card">
+                <div class="quiz-resources-glow">
+                    <span class="material-symbols-outlined quiz-resources-glow-icon">search_check</span>
+                </div>
+                <div class="quiz-resources-content">
+                    <div class="quiz-resources-header">
+                        <span class="material-symbols-outlined quiz-resources-icon">travel_explore</span>
+                        <h4 class="quiz-resources-title">Recursos úteis</h4>
+                        <p class="quiz-resources-text">Consulte sites de checagem, segurança digital e orientação para avaliar informações.</p>
+                    </div>
+                    <div class="quiz-resources-list">
+                            <a href="https://projetocomprova.com.br/" target="_blank" rel="noopener noreferrer"
+                               class="quiz-resource-link">
+                                <span class="quiz-resource-name">Projeto Comprova</span>
+                                <span class="quiz-resource-description">Checagens jornalísticas de conteúdos suspeitos.</span>
+                            </a>
+                            <a href="https://checamos.afp.com/" target="_blank" rel="noopener noreferrer"
+                               class="quiz-resource-link">
+                                <span class="quiz-resource-name">AFP Checamos</span>
+                                <span class="quiz-resource-description">Verificação de fatos em português.</span>
+                            </a>
+                            <a href="https://new.safernet.org.br/" target="_blank" rel="noopener noreferrer"
+                               class="quiz-resource-link">
+                                <span class="quiz-resource-name">SaferNet Brasil</span>
+                                <span class="quiz-resource-description">Orientações sobre segurança e cidadania digital.</span>
+                            </a>
+                            <a href="https://cartilha.cert.br/" target="_blank" rel="noopener noreferrer"
+                               class="quiz-resource-link">
+                                <span class="quiz-resource-name">Cartilha CERT.br</span>
+                                <span class="quiz-resource-description">Dicas práticas sobre golpes, boatos e segurança na internet.</span>
+                            </a>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+{% endblock %}

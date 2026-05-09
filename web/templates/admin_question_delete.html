@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Excluir pergunta{% endblock %}
+
+{% block content %}
+<section class="bg-slate-50 px-4 py-10 sm:px-6 sm:py-14">
+    <div class="max-w-4xl mx-auto space-y-8">
+        <div>
+            <div>
+                <h1 class="text-4xl font-headline font-extrabold tracking-tight text-slate-950 sm:text-5xl">Excluir pergunta</h1>
+                <p class="mt-3 text-lg text-slate-500">Esta ação é permanente e não poderá ser desfeita.</p>
+            </div>
+        </div>
+
+        <div class="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+            <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+                <div>
+                    <h2 class="text-lg font-semibold text-slate-900">Ações</h2>
+                    <p class="mt-2 text-sm text-slate-500">Use estes atalhos para voltar com segurança antes de confirmar a exclusão.</p>
+                </div>
+
+                <div class="space-y-3">
+                    <p class="text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">Navegação</p>
+                    <div class="flex flex-col items-center gap-3 sm:flex-row sm:items-stretch">
+                        <a href="{{ url_for('admin_question_detail', question_id=question_id) }}"
+                           class="inline-flex min-h-12 w-full max-w-xs items-center justify-center rounded-xl bg-slate-100 px-5 py-3 text-center font-semibold text-slate-900 shadow-sm transition-colors hover:bg-slate-200 sm:max-w-none">
+                            Voltar para detalhe
+                        </a>
+                        <a href="{{ url_for('admin_questions') }}"
+                           class="inline-flex min-h-12 w-full max-w-xs items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-center font-semibold text-white shadow-sm transition-colors hover:bg-slate-800 sm:max-w-none">
+                            Voltar à listagem
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if error_message %}
+        <div class="rounded-lg border {% if deletion_blocked %}border-amber-200 bg-amber-50 text-amber-800{% else %}border-red-200 bg-red-50 text-red-700{% endif %} px-4 py-3 text-sm">
+            {{ error_message }}
+        </div>
+        {% endif %}
+
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-8 space-y-6">
+            <div class="rounded-xl border border-slate-200 bg-slate-50 px-5 py-4 text-sm text-slate-600">
+                A exclusão definitiva só está disponível para perguntas inativas.
+            </div>
+
+            <div class="space-y-4">
+                <h2 class="text-lg font-semibold text-slate-900">Resumo da pergunta</h2>
+                <dl class="grid gap-5 md:grid-cols-2">
+                    <div>
+                        <dt class="text-sm font-semibold text-slate-500">ID</dt>
+                        <dd class="mt-1 text-slate-900">{{ question.id }}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-semibold text-slate-500">Status</dt>
+                        <dd class="mt-1 text-slate-900">{{ "Ativa" if question.is_active else "Inativa" }}</dd>
+                    </div>
+                    <div class="md:col-span-2">
+                        <dt class="text-sm font-semibold text-slate-500">Texto da pergunta</dt>
+                        <dd class="mt-1 whitespace-pre-line text-slate-900">{{ question.question_text }}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-semibold text-slate-500">Tipo</dt>
+                        <dd class="mt-1 text-slate-900">{{ question.content_type }}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-semibold text-slate-500">Tema</dt>
+                        <dd class="mt-1 text-slate-900">{{ question.theme_title or question.theme_id or "-" }}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-semibold text-slate-500">Categoria</dt>
+                        <dd class="mt-1 text-slate-900">{{ question.category or "-" }}</dd>
+                    </div>
+                    <div>
+                        <dt class="text-sm font-semibold text-slate-500">Fonte</dt>
+                        <dd class="mt-1 break-words text-slate-900">{{ question.source or "-" }}</dd>
+                    </div>
+                </dl>
+            </div>
+
+            {% if not deletion_blocked %}
+            <form method="post" class="space-y-5">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <div>
+                    <label for="confirm_delete" class="mb-2 block text-sm font-semibold text-slate-700">
+                        Digite EXCLUIR para confirmar.
+                    </label>
+                    <input id="confirm_delete" name="confirm_delete" type="text" autocomplete="off"
+                           class="w-full rounded-xl border-slate-300 focus:border-red-500 focus:ring-red-500">
+                </div>
+
+                <div class="flex flex-col items-center gap-3 sm:flex-row sm:items-stretch">
+                    <a href="{{ url_for('admin_question_detail', question_id=question.id) }}"
+                       class="inline-flex min-h-12 w-full max-w-xs items-center justify-center rounded-xl bg-slate-100 px-5 py-3 text-center font-semibold text-slate-900 transition-colors hover:bg-slate-200 sm:max-w-none">
+                        Cancelar
+                    </a>
+                    <button type="submit"
+                            class="inline-flex min-h-12 w-full max-w-xs items-center justify-center rounded-xl bg-red-600 px-5 py-3 text-center font-semibold text-white transition-colors hover:bg-red-500 sm:max-w-none">
+                        Excluir definitivamente
+                    </button>
+                </div>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

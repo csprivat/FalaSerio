@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{% block title %}Fala Sério{% endblock %} — Quiz sobre desinformação</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "tertiary-container": "#236e30",
+                    "on-secondary-fixed-variant": "#3b4664",
+                    "outline": "#727783",
+                    "primary-fixed-dim": "#a8c8ff",
+                    "inverse-primary": "#a8c8ff",
+                    "inverse-surface": "#303033",
+                    "surface-container-high": "#e9e7eb",
+                    "surface-tint": "#005db5",
+                    "surface-container-lowest": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-container": "#efedf1",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#cadcff",
+                    "on-secondary-container": "#535e7d",
+                    "on-tertiary-container": "#a0eea0",
+                    "surface-container-highest": "#e3e2e6",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#005fb8",
+                    "on-tertiary-fixed": "#002106",
+                    "secondary-fixed-dim": "#bbc6e9",
+                    "secondary-container": "#ced9fe",
+                    "primary": "#00488d",
+                    "surface-variant": "#e3e2e6",
+                    "on-tertiary-fixed-variant": "#00531a",
+                    "inverse-on-surface": "#f2f0f4",
+                    "surface-dim": "#dbd9dd",
+                    "on-surface": "#1b1b1e",
+                    "surface-bright": "#faf9fc",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#d6e3ff",
+                    "surface": "#faf9fc",
+                    "on-surface-variant": "#424752",
+                    "surface-container-low": "#f5f3f7",
+                    "on-background": "#1b1b1e",
+                    "tertiary-fixed-dim": "#8cd88d",
+                    "outline-variant": "#c2c6d4",
+                    "tertiary": "#00551a",
+                    "on-primary-fixed": "#001b3d",
+                    "background": "#faf9fc",
+                    "secondary-fixed": "#dae2ff",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed": "#a7f5a7",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#535e7d",
+                    "on-primary-fixed-variant": "#00468b",
+                    "on-secondary-fixed": "#0f1b36",
+                    "on-error-container": "#93000a"
+                },
+                fontFamily: {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+                },
+                borderRadius: {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1.5rem",
+                    "full": "9999px"
+                }
+            }
+        }
+    }
+    </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="{% block body_class %}bg-surface{% endblock %} text-on-surface min-h-screen flex flex-col">
+
+    {% include "_header.html" %}
+
+    <main class="flex-grow {% block main_class %}pt-24{% endblock %}">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include "_footer.html" %}
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

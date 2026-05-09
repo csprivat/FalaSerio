@@ -1,0 +1,63 @@
+<header class="fixed top-0 w-full z-50 bg-white shadow-sm">
+    <div class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+        <a href="{{ url_for('index') }}" class="flex items-center no-underline">
+            <img
+                src="{{ url_for('static', filename='img/falaserio-white.png') }}"
+                alt="Fala Sério"
+                class="h-24 w-auto object-contain sm:h-32"
+            >
+        </a>
+        <nav class="hidden md:flex items-center space-x-8">
+            <a href="{{ url_for('index') }}"
+               class="{% if request.endpoint == 'index' %}text-blue-700 font-semibold border-b-2 border-blue-600{% else %}text-slate-600 hover:text-blue-600{% endif %} transition-colors">
+                Início
+            </a>
+            <a href="{{ url_for('ranking') }}"
+               class="{% if request.endpoint == 'ranking' %}text-blue-700 font-semibold border-b-2 border-blue-600{% else %}text-slate-600 hover:text-blue-600{% endif %} transition-colors">
+                Ranking
+            </a>
+            <a href="{{ url_for('sobre') }}"
+               class="{% if request.endpoint == 'sobre' %}text-blue-700 font-semibold border-b-2 border-blue-600{% else %}text-slate-600 hover:text-blue-600{% endif %} transition-colors">
+                Sobre
+            </a>
+        </nav>
+        {% if request.endpoint == 'quiz' %}
+        <button type="button"
+                onclick="restartQuiz()"
+                class="bg-primary hover:opacity-90 text-on-primary px-6 py-2.5 rounded-full font-semibold transition-all duration-200 active:scale-95 hidden sm:inline-block">
+            Reiniciar quiz
+        </button>
+        {% else %}
+        <a href="{{ url_for('temas') }}"
+           class="bg-primary hover:opacity-90 text-on-primary px-6 py-2.5 rounded-full font-semibold transition-all duration-200 active:scale-95 no-underline hidden sm:inline-block">
+            Iniciar quiz
+        </a>
+        {% endif %}
+        <button id="mobile-menu-btn" class="md:hidden">
+            <span class="material-symbols-outlined text-primary text-3xl">menu</span>
+        </button>
+    </div>
+    <div class="bg-slate-100/50 h-px w-full"></div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-slate-100 px-6 py-4 space-y-3">
+        <a href="{{ url_for('index') }}" class="block text-slate-700 font-medium py-2 hover:text-primary transition-colors">Início</a>
+        {% if request.endpoint == 'quiz' %}
+        <button type="button" onclick="restartQuiz()" class="block text-slate-700 font-medium py-2 hover:text-primary transition-colors text-left w-full">Reiniciar quiz</button>
+        {% else %}
+        <a href="{{ url_for('temas') }}" class="block text-slate-700 font-medium py-2 hover:text-primary transition-colors">Iniciar quiz</a>
+        {% endif %}
+        <a href="{{ url_for('ranking') }}" class="block text-slate-700 font-medium py-2 hover:text-primary transition-colors">Ranking</a>
+        <a href="{{ url_for('sobre') }}" class="block text-slate-700 font-medium py-2 hover:text-primary transition-colors">Sobre</a>
+    </div>
+</header>
+<script>
+(function(){
+    var btn = document.getElementById('mobile-menu-btn');
+    var menu = document.getElementById('mobile-menu');
+    if (btn && menu) {
+        btn.addEventListener('click', function() {
+            menu.classList.toggle('hidden');
+        });
+    }
+})();
+</script>

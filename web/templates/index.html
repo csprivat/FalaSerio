@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% block title %}Início{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="home-hero">
+    <div class="home-hero-grid">
+        <div class="home-hero-content">
+            <span class="home-hero-badge">
+                EDUCAÇÃO MIDIÁTICA
+            </span>
+            <h1 class="home-hero-title">
+                Aprenda a identificar <br>
+                <span class="home-hero-title-highlight">Desinformação</span>
+            </h1>
+            <p class="home-hero-text">
+                Aprenda a identificar notícias falsas, fontes duvidosas e sinais de desinformação em um quiz interativo.
+                A cada resposta, você pratica a leitura crítica de informações.
+            </p>
+            <div class="home-hero-actions">
+                <a href="{{ url_for('temas') }}"
+                   class="home-hero-button home-hero-button--primary">
+                    Começar
+                </a>
+                <a href="#como-funciona"
+                   class="home-hero-button home-hero-button--secondary">
+                    Como funciona
+                </a>
+            </div>
+        </div>
+        <div class="home-hero-visual">
+            <div class="home-hero-glow"></div>
+            <div class="home-hero-card">
+                <div class="home-hero-frame">
+                    <img src="{{ url_for('static', filename='img/screen.png') }}" alt="Prévia da interface do Fala Sério" class="home-hero-image">
+                </div>
+                <div class="home-verification-badge">
+                    <span class="material-symbols-outlined home-verification-icon" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    <div>
+                        <p class="home-verification-text">Informação<br>verificada</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section (Bento Grid) -->
+<section class="home-stats">
+    <div class="home-stats-container">
+        <div class="home-stats-header">
+            <h2 class="home-section-title">Visão geral do quiz</h2>
+            <p class="home-section-text">Entenda como o quiz está organizado.</p>
+        </div>
+        <div class="home-stats-grid">
+            <div class="home-stat-card">
+                <div class="home-stat-icon">
+                    <span class="material-symbols-outlined">quiz</span>
+                </div>
+                <div class="home-stat-content">
+                    <h3 class="home-stat-number">10</h3>
+                    <p class="home-stat-title">Perguntas por sessão</p>
+                    <p class="home-stat-description">Cada rodada apresenta uma sequência curta de perguntas.</p>
+                </div>
+            </div>
+            <div class="home-stat-card home-stat-card--highlight">
+                <div class="home-stat-icon home-stat-icon--highlight">
+                    <span class="material-symbols-outlined home-stat-icon--filled">category</span>
+                </div>
+                <div class="home-stat-content">
+                    <h3 class="home-stat-number home-stat-number--highlight">5</h3>
+                    <p class="home-stat-title home-stat-title--highlight">Temas disponíveis</p>
+                    <p class="home-stat-description home-stat-description--highlight">Escolha entre áreas como educação, saúde e tecnologia.</p>
+                </div>
+            </div>
+            <div class="home-stat-card">
+                <div class="home-stat-icon">
+                    <span class="material-symbols-outlined home-stat-icon--tertiary">verified_user</span>
+                </div>
+                <div class="home-stat-content">
+                    <h3 class="home-stat-number">5</h3>
+                    <p class="home-stat-title">Tipos de feedback</p>
+                    <p class="home-stat-description">As respostas recebem retorno educativo ao longo do quiz.</p>
+                </div>
+            </div>
+            <div class="home-quote-card">
+                <div class="home-quote-icon">
+                    <span class="material-symbols-outlined">groups</span>
+                </div>
+                <p class="home-quote-text">"Aprendi a desconfiar do que parece bom demais para ser verdade."</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How it Works -->
+<section id="como-funciona" class="home-how">
+    <div class="home-how-header">
+        <div class="home-how-content">
+            <h2 class="home-how-title">Como funciona o desafio?</h2>
+            <p class="home-how-text">O quiz apresenta situações, notícias e sinais de alerta. Você lê, avalia as informações e escolhe a resposta que considera mais adequada.</p>
+        </div>
+        <div class="home-how-indicators">
+            <div class="home-how-indicator home-how-indicator--active"></div>
+            <div class="home-how-indicator"></div>
+            <div class="home-how-indicator"></div>
+        </div>
+    </div>
+    <div class="home-how-grid">
+        <div class="home-step group">
+            <div class="home-step-number-wrap">
+                <div class="home-step-number home-step-number--primary">1</div>
+            </div>
+            <h3 class="home-step-title">Escolha um Tema</h3>
+            <p class="home-step-description">Escolha a categoria que deseja responder.</p>
+        </div>
+        <div class="home-step group">
+            <div class="home-step-number-wrap">
+                <div class="home-step-number home-step-number--secondary">2</div>
+            </div>
+            <h3 class="home-step-title">Analise as informações</h3>
+            <p class="home-step-description">Leia a informação, confira a fonte e observe sinais de distorção, exagero ou falta de contexto.</p>
+        </div>
+        <div class="home-step group">
+            <div class="home-step-number-wrap">
+                <div class="home-step-number home-step-number--tertiary">3</div>
+            </div>
+            <h3 class="home-step-title">Escolha sua resposta</h3>
+            <p class="home-step-description">Escolha entre verdadeiro ou falso e veja o retorno sobre sua resposta.</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="home-cta">
+    <div class="home-cta-card">
+        <div class="home-cta-glow"></div>
+        <h2 class="home-cta-title">Pronto para testar seu senso crítico?</h2>
+        <p class="home-cta-text">
+            Use o quiz para praticar a análise de informações no dia a dia.
+        </p>
+        <a href="{{ url_for('temas') }}"
+           class="home-cta-button">
+            Começar
+        </a>
+    </div>
+</section>
+{% endblock %}

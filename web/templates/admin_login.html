@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Login administrativo{% endblock %}
+
+{% block content %}
+<section class="px-6 py-16">
+    <div class="max-w-md mx-auto bg-white border border-slate-200 rounded-2xl shadow-sm p-8">
+        <h1 class="text-3xl font-headline font-extrabold text-slate-900 mb-2">Login administrativo</h1>
+        <p class="text-slate-600 mb-6">Entre com suas credenciais para acessar a área administrativa.</p>
+
+        {% if error_message %}
+        <div class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {{ error_message }}
+        </div>
+        {% endif %}
+
+        <form method="post" class="space-y-4">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <div>
+                <label for="username" class="block text-sm font-semibold text-slate-700 mb-1">Usuário</label>
+                <input id="username" name="username" type="text" required
+                       class="w-full rounded-xl border-slate-300 focus:border-primary focus:ring-primary">
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-semibold text-slate-700 mb-1">Senha</label>
+                <input id="password" name="password" type="password" required
+                       class="w-full rounded-xl border-slate-300 focus:border-primary focus:ring-primary">
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-primary hover:opacity-90 text-on-primary font-semibold py-3 rounded-xl transition-opacity">
+                Entrar
+            </button>
+        </form>
+    </div>
+</section>
+{% endblock %}
