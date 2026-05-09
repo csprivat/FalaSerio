@@ -224,13 +224,16 @@ Este projeto é distribuído sob a licença **AGPLv3**.
 Desenvolvido por:
 
 - Cristian Privat
+- LinkedIn: https://www.linkedin.com/in/cristian-privat/
 
 Apoio:
 
 - Ricardo Andrade
+- Site: https://feudo.org/
 
 Parceria:
 
 - LABHDUFBA
+- Site: https://labhdufba.github.io/pt/
 
 Atualizado em 2026-05-06.
