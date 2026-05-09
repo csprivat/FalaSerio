@@ -114,11 +114,13 @@ Edite o `.env` e defina senhas fortes para:
 
 ```env
 DB_PASSWORD=
-MARIADB_ROOT_PASSWORD=
+DB_ROOT_PASSWORD=
 FLASK_SECRET_KEY=
 ADMIN_USERNAME=
 ADMIN_PASSWORD=
 ```
+
+`DB_ROOT_PASSWORD` é a variável declarada no `.env` para a senha de root do MariaDB neste projeto.
 
 Para ambiente local HTTP, pode ser necessário usar:
 
