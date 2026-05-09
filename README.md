@@ -229,4 +229,8 @@ Apoio:
 
 - Ricardo Andrade
 
+Parceria:
+
+- LABHDUFBA
+
 Atualizado em 2026-05-06.
