@@ -40,8 +40,8 @@ Responsabilidades:
 - renderizar páginas públicas;
 - expor rotas do quiz em JSON;
 - controlar sessão do usuário;
-- aplicar CSRF nas requisições;
-- aplicar rate limit;
+- controlar sessão administrativa;
+- aplicar controles de proteção da aplicação;
 - servir área administrativa;
 - consultar e atualizar o banco via `db.py`.
 
@@ -50,8 +50,6 @@ Tecnologias:
 - Python 3.11;
 - Flask;
 - Gunicorn;
-- Flask-WTF;
-- Flask-Limiter;
 - Jinja templates;
 - JavaScript simples no frontend.
 
@@ -114,17 +112,26 @@ Responsabilidades:
 - buscar temas;
 - salvar pontuação web;
 - consultar ranking;
-- executar operações administrativas de perguntas.
+- executar operações administrativas de perguntas;
+- exportar perguntas para CSV;
+- validar chaves de duplicidade para importação;
+- criar perguntas administrativas em lote;
+- excluir perguntas inativas sob confirmação.
 
 Principais funções:
 
 ```text
 fetch_questions(theme_id)
 fetch_admin_questions(filters=None)
+fetch_admin_questions_for_export()
 fetch_admin_question_by_id(question_id)
 create_admin_question(data)
+create_admin_questions_bulk(rows)
 update_admin_question(question_id, data)
 set_admin_question_active(question_id, is_active)
+delete_admin_question(question_id)
+fetch_existing_question_keys()
+fetch_theme_ids()
 get_correct_answer(question_id)
 fetch_themes()
 save_web_score(session_id, username, score)
@@ -156,7 +163,9 @@ sobre.html
 admin_login.html
 admin_index.html
 admin_questions.html
+admin_question_import.html
 admin_question_detail.html
+admin_question_delete.html
 admin_question_edit.html
 admin_question_new.html
 ```
@@ -278,16 +287,54 @@ GET  /admin/login
 POST /admin/login
 GET  /admin
 GET  /admin/questions
+GET  /admin/questions/export
+GET  /admin/questions/import-template
+GET  /admin/questions/import
+POST /admin/questions/import
 GET  /admin/questions/new
 POST /admin/questions/new
 GET  /admin/questions/<question_id>
 GET  /admin/questions/<question_id>/edit
 POST /admin/questions/<question_id>/edit
 POST /admin/questions/<question_id>/toggle-active
+GET  /admin/questions/<question_id>/delete
+POST /admin/questions/<question_id>/delete
 GET  /admin/logout
 ```
 
 Todas as rotas administrativas, exceto login e logout, usam `admin_login_required`.
+
+### Autenticação administrativa
+
+O painel administrativo faz parte da própria aplicação Flask.
+
+Características atuais:
+
+- autenticação administrativa simples integrada à aplicação;
+- credenciais administrativas definidas por variáveis de ambiente;
+- controle de acesso baseado em sessão;
+- não há múltiplos perfis, ACL avançada, recuperação de senha ou autenticação externa.
+
+### Operações administrativas de perguntas
+
+O módulo administrativo atual cobre:
+
+- listagem com filtros por `theme_id`, `content_type` e `is_active`;
+- criação e edição de perguntas sem alterar schema;
+- ativação e desativação editorial por `toggle-active`;
+- exclusão definitiva controlada apenas para perguntas inativas;
+- exportação CSV protegida;
+- download de modelo CSV;
+- importação CSV em lote com validação integral antes de gravar.
+
+### Regras arquiteturais do admin
+
+- perguntas inativas continuam acessíveis no painel, mas não entram no quiz público;
+- a exclusão definitiva não existe em massa e depende de confirmação manual;
+- a importação CSV não atualiza perguntas existentes;
+- a importação CSV não remove perguntas;
+- o processamento CSV usa apenas o módulo nativo `csv`;
+- o formato adotado é `;` como separador e UTF-8 com BOM.
 
 ---
 
@@ -295,20 +342,16 @@ Todas as rotas administrativas, exceto login e logout, usam `admin_login_require
 
 Medidas já implementadas:
 
-- `FLASK_SECRET_KEY` obrigatório;
-- sessão Flask com `HTTPOnly`;
-- `SameSite=Lax`;
-- `SESSION_COOKIE_SECURE` configurável por ambiente;
-- CSRF via Flask-WTF;
-- rate limit via Flask-Limiter;
-- headers de segurança básicos:
-  - `X-Content-Type-Options`;
-  - `Referrer-Policy`;
-  - `X-Frame-Options`;
-  - `Content-Security-Policy`;
-- login administrativo por variáveis de ambiente;
-- respostas corretas não ficam expostas na sessão pública;
-- validação anti-fraude simples por tempo mínimo plausível antes de salvar ranking.
+- há controles de segurança compatíveis com o escopo atual da aplicação;
+- o acesso administrativo depende de autenticação;
+- o fluxo público evita expor respostas corretas na sessão do quiz;
+- o registro de pontuação inclui validações básicas de consistência.
+
+No admin, a proteção atual é deliberadamente simples e compatível com o escopo:
+
+- autenticação por sessão;
+- rotas internas protegidas;
+- credenciais fora do código, via ambiente.
 
 ---
 
